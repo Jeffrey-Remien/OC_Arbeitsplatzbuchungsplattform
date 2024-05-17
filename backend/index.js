@@ -13,7 +13,7 @@ const pool = new Pool({
   host: 'postgres',
   database: 'mydatabase',
   password: 'postgres',
-  port: 5432,
+  port: 5433,
 });
 
 app.get('/api/workspaces', async (req, res) => {
