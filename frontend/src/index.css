@@ -1,0 +1,75 @@
+/* index.css */
+/* Reset some default browser styles */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    color: #333; /* Dark gray text color */
+    background-color: #f4f4f4; /* Light gray background */
+    font-family: Arial, sans-serif; /* Default font for the body */
+    padding: 20px; /* Add some padding to the body */
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Additional styles */
+h1 {
+    color: #2c3e50; /* Set color for heading */
+    margin-top: 20px;
+    text-align: center;
+}
+
+ul {
+    padding: 20px;
+    background-color: white; /* White background for lists */
+    border-radius: 8px; /* Rounded corners for list */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for lists */
+    margin-top: 20px;
+}
+
+li {
+    margin-bottom: 10px; /* Space out list items */
+    font-size: 18px; /* Larger text for readability */
+}
+
+/* Simple styling for links */
+a {
+    color: #3498db; /* Blue color for links */
+    text-decoration: none; /* No underline on links */
+}
