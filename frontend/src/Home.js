@@ -17,41 +17,46 @@ function Home() {
     }, [date]);
   
     return (
-        <div>
-            <h1 style={{margin: '10px'}}>Workspaces</h1>
-      <div  style={{margin: '10px', display : 'flex', 'justify-content': 'center','align-items': 'center' }}>
-        
-        <label>
-          Select Date:
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </label>
-        </div>
        <div>
-        <div style={{display : 'flex', 'justify-content': 'space-around' }}>
-        <label style={{color: "green"}}>
-            Frei:
-        <ul>
-          {workspaces.available.map(ws => (
-                <li>{ws.name}</li>
-              ))}
-        </ul>
-        </label>
-        <label style={{color: "red"}}>
-            Gebucht:
-            <ul>
-            {workspaces.booked.map(ws => (
-                    <li>{ws.name}</li>
-                ))}
-            </ul>
-        </label>
+        <h1 style={{ margin: '10px' }}>Workspaces</h1>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <label>
+            Select Date:
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </label>
         </div>
-      </div>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <label style={{ color: 'green' }}>
+              Frei:
+              <ul>
+                {workspaces.available.map((ws, index) => (
+                  <li key={index}>{ws.name}</li>
+                ))}
+              </ul>
+            </label>
+            <label style={{ color: 'red' }}>
+              Gebucht:
+              <ul>
+                {workspaces.booked.map((ws, index) => (
+                  <li key={index}>{ws.name}</li>
+                ))}
+              </ul>
+            </label>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button>papapa</button>
+          </div>
+        </div>
       </div>
     );
   }
+  
+    
+
 
 export default Home;

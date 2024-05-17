@@ -1,4 +1,8 @@
 ul {
     width: 40vw;
-    height: 100%;
+    height: 80%;
+}
+
+div {
+    margin: 10px;
 }
