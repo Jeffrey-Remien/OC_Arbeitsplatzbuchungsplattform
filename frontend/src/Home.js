@@ -1,10 +1,12 @@
 import React, { useEffect, useState }  from 'react';
 import './Home.css';
-import axios from 'axios'
+import axios from 'axios';
+import BookingPopup from './Components/BookingPopup';
 
 function Home() {
     const [workspaces, setWorkspaces] = useState({ available: [], booked: [] });
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
+    const [requestedWorkspace, setRequestedWorkspace] = useState();
   
     useEffect(() => {
       if (date) {
@@ -49,7 +51,7 @@ function Home() {
             </label>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <button>papapa</button>
+            <BookingPopup type="new" workspaces={workspaces.available} choice={requestedWorkspace}></BookingPopup>
           </div>
         </div>
       </div>
