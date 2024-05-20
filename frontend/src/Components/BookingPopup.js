@@ -4,7 +4,7 @@ import axios from 'axios';
 import Popup from 'reactjs-popup';
 
 function BookingPopup(props) {
-    const [worspace, setWorkspace] = useState():
+    const [worspace, setWorkspace] = useState();
     const [from, setFrom] = useState(new Date().toISOString().split('T')[0]); 
     const [to, setTo] = useState(new Date().toISOString().split('T')[0]); 
   
