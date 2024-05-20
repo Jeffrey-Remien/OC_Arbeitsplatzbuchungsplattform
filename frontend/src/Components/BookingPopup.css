@@ -2,4 +2,11 @@ div.centered {
     display: 'flex'; 
     justify-content: 'center';
     align-items: 'center';
+    padding: 15px;
+}
+
+div.container {
+    background-color: white;
+    border: black;
+    border-radius: 10%;
 }

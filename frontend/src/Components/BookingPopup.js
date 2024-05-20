@@ -7,10 +7,18 @@ function BookingPopup(props) {
     const [worspace, setWorkspace] = useState();
     const [from, setFrom] = useState(new Date().toISOString().split('T')[0]); 
     const [to, setTo] = useState(new Date().toISOString().split('T')[0]); 
+
+    function submitBooking() {
+        return 0;
+    }
+
+    function deleteBooking() {
+        return 0;
+    }
   
     return (
-        <Popup trigger={<button> Trigger</button>} position="center">
-            <div style={{backgroundColor: "white"}}>
+        <Popup trigger={<button> Trigger</button>} position="top center">
+            <div className='container'>
                 <h1>{props.type === 'new' ? 'Neue Buchung' : 'Buchung Bearbeiten'}</h1>
                 <div className='centered'>
                     <label>
@@ -43,6 +51,10 @@ function BookingPopup(props) {
                         onChange={(e) => setTo(e.target.value)}
                         />
                     </label>
+                </div>
+                <div className='centered'>
+                    <button onClick={submitBooking}>Buchen</button>
+                    {props.type === 'new' ? null : (<button onClick={deleteBooking}>Stornieren</button>)}
                 </div>
             </div>
         </Popup>
