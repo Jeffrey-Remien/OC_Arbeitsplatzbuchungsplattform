@@ -66,6 +66,54 @@ app.get('/api/workspaces/status/day', async (req, res) => {
   }
 });
 
+// Create a new booking
+app.post('/api/bookings', async (req, res) => {
+  const { user_id, workspace_id, start_time, end_time } = req.body;
+  try {
+    const newBooking = await pool.query(
+      'INSERT INTO bookings (user_id, workspace_id, start_time, end_time) VALUES ($1, $2, $3, $4) RETURNING *',
+      [user_id, workspace_id, start_time, end_time]
+    );
+    res.status(201).json(newBooking.rows[0]);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update an existing booking
+app.put('/api/bookings/:id', async (req, res) => {
+  const { id } = req.params;
+  const { user_id, workspace_id, start_time, end_time } = req.body;
+  try {
+    const updatedBooking = await pool.query(
+      'UPDATE bookings SET user_id = $1, workspace_id = $2, start_time = $3, end_time = $4 WHERE booking_id = $5 RETURNING *',
+      [user_id, workspace_id, start_time, end_time, id]
+    );
+    if (updatedBooking.rows.length === 0) {
+      res.status(404).json({ error: 'Booking not found' });
+    } else {
+      res.status(200).json(updatedBooking.rows[0]);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Delete an existing booking
+app.delete('/api/bookings/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('DELETE FROM bookings WHERE booking_id = $1 RETURNING *', [id]);
+    if (result.rows.length === 0) {
+      res.status(404).json({ error: 'Booking not found' });
+    } else {
+      res.status(204).end();
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

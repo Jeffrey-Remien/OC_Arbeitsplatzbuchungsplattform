@@ -2,11 +2,17 @@ import React, { useEffect, useState }  from 'react';
 import './Home.css';
 import axios from 'axios';
 import BookingPopup from './Components/BookingPopup';
+import { useRef } from 'react/cjs/react.development';
 
 function Home() {
     const [workspaces, setWorkspaces] = useState({ available: [], booked: [] });
+    const [selectedWorkspace, setSelectedWorkspace] = useState();
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
-    const [requestedWorkspace, setRequestedWorkspace] = useState();
+
+    function openPopupPreselectWorkspace (id) {
+      setSelectedWorkspace(id);
+      document.getElementById("popupTrigger").click();
+    }
   
     useEffect(() => {
       if (date) {
@@ -37,7 +43,7 @@ function Home() {
               Frei:
               <ul>
                 {workspaces.available.map((ws, index) => (
-                  <li key={index}>{ws.name}</li>
+                  <li key={index} onClick={()=>{openPopupPreselectWorkspace (ws.workspace_id)}}>{ws.name}</li>
                 ))}
               </ul>
             </label>
@@ -51,7 +57,7 @@ function Home() {
             </label>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <BookingPopup type="new" workspaces={workspaces.available} choice={requestedWorkspace}></BookingPopup>
+            <BookingPopup type="new" workspaces={workspaces.available} selectedWorkspace={selectedWorkspace}></BookingPopup>
           </div>
         </div>
       </div>
