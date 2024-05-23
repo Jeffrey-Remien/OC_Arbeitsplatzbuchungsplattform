@@ -6,33 +6,39 @@ function BookingPopup({
     show, 
     onClose, 
     workspaces, 
-    selectedWorkspace, 
+    selectedWorkspace,
+    selectedDate, 
     selectedBooking, 
     onSave, 
     onDelete 
   }) {
 
+    const convertDate = (date) => new Date(date).toISOString().split('T')[0]
 
     console.log("POPUP");
     console.log(selectedBooking);
     const [workspace, setWorkspace] = useState(selectedWorkspace || '');
-    const [from, setFrom] = useState(selectedBooking ? selectedBooking.start_time : ''); 
-    const [to, setTo] = useState(selectedBooking ? selectedBooking.end_time : '');
+    const [from, setFrom] = useState(selectedBooking ? convertDate(selectedBooking.start_time) : ''); 
+    const [to, setTo] = useState(selectedBooking ? convertDate(selectedBooking.end_time) : '');
 
-    console.log(workspace);
+    console.log(from);
 
     useEffect(() => {
         if (selectedWorkspace) {
             setWorkspace(selectedWorkspace);
+            setFrom(selectedDate);
+            setTo(selectedDate);
         }
         if (selectedBooking) {
             setWorkspace(selectedBooking.workspace_id);
-            setFrom(selectedBooking.start_time);
-            setTo(selectedBooking.end_time);
+            setFrom(convertDate(selectedBooking.start_time));
+            setTo(convertDate(selectedBooking.end_time));
         }
     }, [selectedWorkspace, selectedBooking]);
 
-    console.log(workspace);
+
+
+    console.log(from);
 
 
     if (!show) {

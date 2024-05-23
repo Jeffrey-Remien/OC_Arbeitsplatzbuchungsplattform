@@ -83,11 +83,11 @@ app.post('/api/bookings', async (req, res) => {
 // Update an existing booking
 app.put('/api/bookings/:id', async (req, res) => {
   const { id } = req.params;
-  const { user_id, workspace_id, start_time, end_time } = req.body;
+  const {workspace_id, start_time, end_time } = req.body;
   try {
     const updatedBooking = await pool.query(
-      'UPDATE bookings SET user_id = $1, workspace_id = $2, start_time = $3, end_time = $4 WHERE booking_id = $5 RETURNING *',
-      [user_id, workspace_id, start_time, end_time, id]
+      'UPDATE bookings SET user_id = 1, workspace_id = $1, start_time = $2, end_time = $3 WHERE booking_id = $4 RETURNING *', //mocking user ID for now
+      [ workspace_id, start_time, end_time, id]
     );
     if (updatedBooking.rows.length === 0) {
       res.status(404).json({ error: 'Booking not found' });

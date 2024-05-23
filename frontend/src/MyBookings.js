@@ -16,6 +16,15 @@ function MyBookings() {
         setShowPopup(true);
     };
 
+    const fetchBookings = async () => {
+        try {
+            const response = await getUserBookings();
+            setBookings(response.data);
+        } catch (error) {
+            console.error('Error fetching user bookings:', error);
+        }
+    };
+
     const handleSaveBooking = async (booking) => {
         try {
             const response = await updateBooking(selectedBooking.booking_id, booking);
@@ -24,6 +33,7 @@ function MyBookings() {
             console.error('Error updating booking:', error);
             alert("Buchung konnte nicht aktualisiert werden!");
         }
+        fetchBookings();
         setShowPopup(false);
     };
 
@@ -35,20 +45,12 @@ function MyBookings() {
             console.error('Error updating booking:', error);
             alert("Buchung konnte nicht storniert werden!");
         }
+        fetchBookings();
         setShowPopup(false);
     };
 
     
     useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                const response = await getUserBookings();
-                setBookings(response.data);
-            } catch (error) {
-                console.error('Error fetching user bookings:', error);
-            }
-        };
-
         fetchBookings();
     }, []);
 

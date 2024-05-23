@@ -10,6 +10,14 @@ function Home() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
     const [showPopup, setShowPopup] = useState(false);
 
+    const fetchWorkspaces = async (date) => {
+      axios.get(`/api/workspaces/status/day?date=${date}`)
+      .then(response => {
+        setWorkspaces(response.data);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+    };
+    
     const handleNewBooking = () => {
       if(workspaces.available.length > 0){
         setSelectedWorkspace(workspaces.available[0].workspace_id); // Select the first available workspace
@@ -34,16 +42,13 @@ function Home() {
             console.error('Error creating booking:', error);
             alert("Buchung konnte nicht getätigt werden!");
         }
+        fetchWorkspaces(date);
         setShowPopup(false);
     };
   
     useEffect(() => {
       if (date) {
-        axios.get(`/api/workspaces/status/day?date=${date}`)
-          .then(response => {
-            setWorkspaces(response.data);
-          })
-          .catch(error => console.error('Error fetching data:', error));
+        fetchWorkspaces(date);
       }
     }, [date]);
   
@@ -82,7 +87,7 @@ function Home() {
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <button onClick={handleNewBooking}>Neue Buchung</button>
           </div>
-          <BookingPopup show={showPopup} onClose={() => setShowPopup(false)} workspaces={workspaces.available} selectedWorkspace={selectedWorkspace} onSave={handleSaveBooking}></BookingPopup>
+          <BookingPopup show={showPopup} onClose={() => setShowPopup(false)} workspaces={workspaces.available} selectedWorkspace={selectedWorkspace} selectedDate={date} onSave={handleSaveBooking}></BookingPopup>
         </div>
       </div>
     );
