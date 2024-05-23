@@ -13,6 +13,7 @@ export const getWorkspaces = (date) => {
     },
   });
 };
+export const getAllWorkspaces = () => api.get('/workspaces');
 export const createBooking = (booking) => api.post('/bookings', booking);
 export const updateBooking = (id, booking) => api.put(`/bookings/${id}`, booking);
 export const deleteBooking = (id) => api.delete(`/bookings/${id}`);

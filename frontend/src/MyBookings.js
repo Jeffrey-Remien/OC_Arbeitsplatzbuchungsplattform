@@ -1,31 +1,70 @@
 import React, { useEffect, useState }  from 'react';
+import { updateBooking, deleteBooking, getAllWorkspaces } from './util/api';
 import './MyBookings.css';
 import { getUserBookings } from './util/api';
 import BookingPopup from './Components/BookingPopup';
 
 function MyBookings() {
     const [bookings, setBookings] = useState([]);
-    const [selectedWorkspace, setSelectedWorkspace] = useState();
+    const [workspaces, setWorkspaces] = useState();
+    const [showPopup, setShowPopup] = useState(false);
+    const [selectedBooking, setSelectedBooking] = useState(null);
 
+    const handleBookingClick = (booking) => {
+        console.log(booking);
+        setSelectedBooking(booking);
+        setShowPopup(true);
+    };
+
+    const handleSaveBooking = async (booking) => {
+        try {
+            const response = await updateBooking(selectedBooking.booking_id, booking);
+            console.log('Booking updated:', response.data);
+        } catch (error) {
+            console.error('Error updating booking:', error);
+            alert("Buchung konnte nicht aktualisiert werden!");
+        }
+        setShowPopup(false);
+    };
+
+    const handleDeleteBooking = async () => {
+        try {
+            const response = await deleteBooking(selectedBooking.booking_id);
+            console.log('Booking updated:', response.data);
+        } catch (error) {
+            console.error('Error updating booking:', error);
+            alert("Buchung konnte nicht storniert werden!");
+        }
+        setShowPopup(false);
+    };
 
     
     useEffect(() => {
         const fetchBookings = async () => {
-        try {
-            const response = await getUserBookings();
-            setBookings(response.data);
-        } catch (error) {
-            console.error('Error fetching user bookings:', error);
-        }
+            try {
+                const response = await getUserBookings();
+                setBookings(response.data);
+            } catch (error) {
+                console.error('Error fetching user bookings:', error);
+            }
         };
 
         fetchBookings();
     }, []);
 
-    function openPopupPreselectWorkspace (id) {
-      setSelectedWorkspace(id);
-      document.getElementById("popupTrigger").click();
-    }
+    useEffect(()=>{
+        const fetchWorkspaces = async () => {
+            try{
+                const response = await getAllWorkspaces();
+                setWorkspaces(response.data);
+            } catch (error) {
+                console.log('Error fetching workspaces:', error);
+            }
+        };
+
+        fetchWorkspaces();
+        
+    }, []);
   
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -58,7 +97,7 @@ function MyBookings() {
             </thead>
             <tbody>
                 {bookings.map((bk, index) => (
-                  <tr key={index} onClick={()=>{openPopupPreselectWorkspace (bk.booking_id)}}>
+                  <tr key={index} onClick={()=>{handleBookingClick (bk)}}>
                     <td>{bk.workspace_name}</td>
                     <td>{formatDate(bk.start_time)}</td>
                     <td>{formatDate(bk.end_time)}</td>
@@ -68,7 +107,14 @@ function MyBookings() {
           </table>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <BookingPopup type="edit" workspaces={[]} selectedWorkspace={selectedWorkspace}></BookingPopup>
+            <BookingPopup 
+                show={showPopup} 
+                onClose={() => setShowPopup(false)} 
+                workspaces={workspaces} 
+                selectedBooking={selectedBooking}
+                onSave={handleSaveBooking} 
+                onDelete={handleDeleteBooking}
+            />
         </div>
       </div>
     );

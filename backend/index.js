@@ -119,7 +119,7 @@ app.get('/api/user/bookings', async (req, res) => {
   const user_id = 1; // Mocked user_id
   try {
     const result = await pool.query(
-      `SELECT b.booking_id, w.name AS workspace_name, b.start_time, b.end_time 
+      `SELECT b.booking_id, b.workspace_id, w.name AS workspace_name, b.start_time, b.end_time 
        FROM bookings b
        JOIN workspaces w ON b.workspace_id = w.workspace_id
        WHERE b.user_id = $1`,
