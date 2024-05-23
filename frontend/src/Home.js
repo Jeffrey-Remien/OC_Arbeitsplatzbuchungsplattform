@@ -2,7 +2,6 @@ import React, { useEffect, useState }  from 'react';
 import './Home.css';
 import axios from 'axios';
 import BookingPopup from './Components/BookingPopup';
-import { useRef } from 'react/cjs/react.development';
 
 function Home() {
     const [workspaces, setWorkspaces] = useState({ available: [], booked: [] });

@@ -59,15 +59,9 @@ function BookingPopup(props) {
                         <select 
                             onChange={(e) => {setWorkspace(e.target.value); console.log(e.target.value); console.log(e.target)}}
                         >   
-                            {props.workspaces.map((ws, index) => {
-                                if (ws.workspace_id === props.selectedWorkspace){(
-                                    <option value={ws.workspace_id} selected>{ws.name}</option> 
-                                )}
-                                else{(
-                                    <option value={ws.workspace_id}>{ws.name}</option> 
-                                )}
-                                
-                            })}
+                            {props.workspaces.map((ws, index) => (
+                                <option value={ws.workspace_id}>{ws.name}</option> 
+                            ))}
                         </select>
                     </label>
                 </div>

@@ -114,6 +114,23 @@ app.delete('/api/bookings/:id', async (req, res) => {
   }
 });
 
+// Get all bookings for a specific user (mocked user_id for now)
+app.get('/api/user/bookings', async (req, res) => {
+  const user_id = 1; // Mocked user_id
+  try {
+    const result = await pool.query(
+      `SELECT b.booking_id, w.name AS workspace_name, b.start_time, b.end_time 
+       FROM bookings b
+       JOIN workspaces w ON b.workspace_id = w.workspace_id
+       WHERE b.user_id = $1`,
+      [user_id]
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

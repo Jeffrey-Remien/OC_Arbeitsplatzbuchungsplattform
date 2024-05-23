@@ -1,0 +1,25 @@
+div{
+    padding: 0;
+    margin: 0;
+}
+
+div.container {
+    width: 100%;
+    height: 40px;
+    background-color: darkblue;
+    display: flex;
+    justify-content: space-around;
+}
+
+div.button {
+    background-color: blue;
+    color: white;
+    border: white;
+    border-radius: 5%;
+    box-shadow: 4px;
+    align-content: center;
+}
+
+div.selectedButton {
+    background-color: cadetblue;
+}

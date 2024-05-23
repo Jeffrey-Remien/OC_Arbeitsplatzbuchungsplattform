@@ -14,12 +14,26 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
-    padding: 0;
+   
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
 }
+
+/* Define the styling for the h1 element */
+h1 {
+    font-size: 2em; /* Very large font size */
+    font-weight: bold; /* Strong font */
+    color: #003366; /* Dark blue color */
+    text-align: center; /* Center align text */
+    margin-top: 20px; /* Space at the top */
+    margin-bottom: 20px; /* Space at the bottom */
+    font-family: 'Arial', sans-serif; /* Fallback font family */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  }
+
+  
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

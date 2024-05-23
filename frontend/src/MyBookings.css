@@ -1,0 +1,28 @@
+table {
+    background-color: white;
+    border-collapse: collapse;
+    box-shadow: 10px;
+}
+
+table tr th:nth-child(1),
+table tr td:nth-child(1) {
+    width:30vw;
+}
+
+table tr th:nth-child(2),
+table tr td:nth-child(2) {
+    width: 10vw;
+}
+
+table tr th:nth-child(3),
+table tr td:nth-child(3) {
+    width: 10vw;
+}
+
+table tr th {
+    border: 2px solid black;
+}
+
+div {
+    padding: 10px;
+}
