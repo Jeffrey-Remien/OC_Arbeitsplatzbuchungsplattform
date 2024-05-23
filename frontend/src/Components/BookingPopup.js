@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from 'react';
 import './BookingPopup.css';
 import Popup from 'reactjs-popup';
+import { is } from 'express/lib/request';
 
 function BookingPopup({ 
     show, 
@@ -15,13 +16,10 @@ function BookingPopup({
 
     const convertDate = (date) => new Date(date).toISOString().split('T')[0]
 
-    console.log("POPUP");
-    console.log(selectedBooking);
     const [workspace, setWorkspace] = useState(selectedWorkspace || '');
     const [from, setFrom] = useState(selectedBooking ? convertDate(selectedBooking.start_time) : ''); 
     const [to, setTo] = useState(selectedBooking ? convertDate(selectedBooking.end_time) : '');
 
-    console.log(from);
 
     useEffect(() => {
         if (selectedWorkspace) {
@@ -34,11 +32,7 @@ function BookingPopup({
             setFrom(convertDate(selectedBooking.start_time));
             setTo(convertDate(selectedBooking.end_time));
         }
-    }, [selectedWorkspace, selectedBooking]);
-
-
-
-    console.log(from);
+    }, [selectedWorkspace, selectedBooking, selectedDate]);
 
 
     if (!show) {
@@ -63,8 +57,9 @@ function BookingPopup({
                 <label>
                     Arbeitsplatz
                     <select 
+                        disabled={isEditing}
                         value={workspace}
-                        onChange={(e) => {setWorkspace(e.target.value); console.log(e.target.value); console.log(e.target)}}
+                        onChange={(e) => {setWorkspace(e.target.value);}}
                     >   
                         {workspaces.map((ws, index) => (
                             <option value={ws.workspace_id} key={ws.workspace_id}>{ws.name}</option> 
