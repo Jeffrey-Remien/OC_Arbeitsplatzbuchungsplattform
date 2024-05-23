@@ -40,7 +40,7 @@ function Home() {
           <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <label style={{ color: 'green' }}>
               Frei:
-              <ul>
+              <ul className='wplist'>
                 {workspaces.available.map((ws, index) => (
                   <li key={index} onClick={()=>{openPopupPreselectWorkspace (ws.workspace_id)}}>{ws.name}</li>
                 ))}
@@ -48,7 +48,7 @@ function Home() {
             </label>
             <label style={{ color: 'red' }}>
               Gebucht:
-              <ul>
+              <ul className='wplist'>
                 {workspaces.booked.map((ws, index) => (
                   <li key={index}>{ws.name}</li>
                 ))}
