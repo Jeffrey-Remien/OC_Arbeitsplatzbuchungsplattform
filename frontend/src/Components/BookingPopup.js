@@ -1,7 +1,5 @@
 import React, { useState, useEffect }  from 'react';
 import './BookingPopup.css';
-import Popup from 'reactjs-popup';
-import { is } from 'express/lib/request';
 
 function BookingPopup({ 
     show, 
