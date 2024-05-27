@@ -10,6 +10,12 @@ function Home() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Default to today
     const [showPopup, setShowPopup] = useState(false);
 
+    const incDate = (inc) => {
+      const d = new Date(date);
+      d.setDate(d.getDate() + inc);
+      setDate(d.toISOString().split('T')[0]);
+    }
+
     const fetchWorkspaces = async (date) => {
       axios.get(`/api/workspaces/status/day?date=${date}`)
       .then(response => {
@@ -58,11 +64,13 @@ function Home() {
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <label>
             Select Date:
+            <span onClick={() => {incDate(-1)}}>🢀</span>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
+            <span onClick={() => {incDate(1)}}>🢂</span>
           </label>
         </div>
         <div>
